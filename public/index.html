@@ -440,39 +440,7 @@
                 updatedMessages.pop()
                 return updatedMessages
             })}
-        const sendMessage = async () => {
-            if (responding) return
-            let inputText = userInput.trim()
-            if (inputText === '') return
-            setResponding(true)
-            setUserInput('')
-            try {
-                while (true) {
-                    let inputText_ = inputText
-                    if (enableTTS){
-                        speaker.reset();
-                    }
-                    if (imageInput.length > 0){
-                        inputText_ = inputText + "\n![image_up](" + imageInput + ")\n";
-                    }
-                    appendMessage({tag: "[user](#message)", text: inputText_})
-                    const result = await streamOutput(inputText)
-                    if (!continueOnRevoke) break
-                    if (result?.revoked) {
-                        inputText = "根据要求，继续上文，输出不少于500字回复"
-                    }else if(result?.revoked_auth){
-			            removeLastestMessage()
-                        continue
-                    }else {
-                        break
-                    }
-                }
-            } catch (error) {
-                alert(JSON.stringify(error))
-            }
-            setResponding(false)
-        }
-
+       
         const streamOutput = async userInput => {
             async function connectWebSocket() {
                 return new Promise((resolve, reject) => {
