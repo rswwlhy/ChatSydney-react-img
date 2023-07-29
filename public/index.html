@@ -459,7 +459,7 @@
                     const result = await streamOutput(inputText)
                     if (!continueOnRevoke) break
                     if (result?.revoked) {
-                        inputText = "Continue from your last sentence."
+                        inputText = "根据要求，继续上文，输出不少于500字回复"
                     }else if(result?.revoked_auth){
 			            removeLastestMessage()
                         continue
